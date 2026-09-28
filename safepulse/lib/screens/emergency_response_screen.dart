@@ -18,7 +18,13 @@ class EmergencyResponseScreen extends StatefulWidget {
 }
 
 class _EmergencyResponseScreenState extends State<EmergencyResponseScreen> {
-  static const String _notifyUrl = 'http://localhost:3000/api/ndma/notify';
+  // Android emulator: 10.0.2.2 reaches your Mac. iOS simulator: use
+  // --dart-define=NOTIFY_URL=http://localhost:3000/api/ndma/notify
+  // Real phone: use your Mac's LAN IP or a deployed URL.
+  static const String _notifyUrl = String.fromEnvironment(
+    'NOTIFY_URL',
+    defaultValue: 'http://10.0.2.2:3000/api/ndma/notify',
+  );
 
   Position? _position;
   bool _locationFetched = false;
@@ -36,6 +42,7 @@ class _EmergencyResponseScreenState extends State<EmergencyResponseScreen> {
   Future<void> _fetchLocation() async {
     try {
       final serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!mounted) return;
       if (!serviceEnabled) {
         setState(() => _locationErrorKey = 'disabled');
         return;
@@ -44,6 +51,7 @@ class _EmergencyResponseScreenState extends State<EmergencyResponseScreen> {
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
+        if (!mounted) return;
         if (permission == LocationPermission.denied) {
           setState(() => _locationErrorKey = 'denied');
           return;
@@ -59,11 +67,13 @@ class _EmergencyResponseScreenState extends State<EmergencyResponseScreen> {
         const Duration(seconds: 8),
         onTimeout: () => throw Exception('Location request timed out'),
       );
+      if (!mounted) return;
       setState(() {
         _position = position;
         _locationFetched = true;
       });
     } catch (e) {
+      if (!mounted) return;
       setState(() => _locationErrorKey = 'error');
     }
   }
@@ -89,6 +99,7 @@ class _EmergencyResponseScreenState extends State<EmergencyResponseScreen> {
           )
           .timeout(const Duration(seconds: 8));
 
+      if (!mounted) return;
       if (response.statusCode == 200) {
         setState(() {
           _dispatched = true;
@@ -101,10 +112,24 @@ class _EmergencyResponseScreenState extends State<EmergencyResponseScreen> {
         });
       }
     } catch (e) {
+      if (!mounted) return;
       setState(() {
         _dispatching = false;
         _dispatchError = 'Could not reach server: $e';
       });
+    }
+  }
+
+  String _locationErrorMessage() {
+    switch (_locationErrorKey) {
+      case 'disabled':
+        return 'Location services are turned off. Please enable them.';
+      case 'denied':
+        return 'Location permission denied.';
+      case 'deniedForever':
+        return 'Location permission permanently denied. Enable it in Settings.';
+      default:
+        return 'Could not get your location.';
     }
   }
 
@@ -159,9 +184,15 @@ class _EmergencyResponseScreenState extends State<EmergencyResponseScreen> {
     final l10n = AppLocalizations.of(context)!;
     final steps = _firstAidSteps(l10n);
 
-    final locationText = _locationFetched && _position != null
-        ? '${_position!.latitude.toStringAsFixed(5)}, ${_position!.longitude.toStringAsFixed(5)}'
-        : l10n.locationFetching;
+    final String locationText;
+    if (_locationFetched && _position != null) {
+      locationText =
+          '${_position!.latitude.toStringAsFixed(5)}, ${_position!.longitude.toStringAsFixed(5)}';
+    } else if (_locationErrorKey.isNotEmpty) {
+      locationText = _locationErrorMessage();
+    } else {
+      locationText = l10n.locationFetching;
+    }
 
     return Scaffold(
       backgroundColor: Colors.red.shade50,
@@ -216,7 +247,8 @@ class _EmergencyResponseScreenState extends State<EmergencyResponseScreen> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(Icons.check_circle, color: Colors.redAccent, size: 20),
+                    const Icon(Icons.check_circle,
+                        color: Colors.redAccent, size: 20),
                     const SizedBox(width: 8),
                     Expanded(child: Text(step)),
                   ],

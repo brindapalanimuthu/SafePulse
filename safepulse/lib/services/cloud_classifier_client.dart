@@ -3,14 +3,14 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import '../models/classification_result.dart';
 import '../screens/emergency_classification_screen.dart';
+import '../config.dart';
 
 /// Talks to the SafePulse backend (Node.js/Express) for AI-driven
 /// emergency classification. Falls back gracefully (throws) if the
 /// network is unavailable — callers should catch and use
 /// OfflineClassifier instead.
 class CloudClassifierClient {
-  // TODO: replace with your actual backend URL (and move to config/env).
-  static const String _baseUrl = 'http://localhost:3000/api/classify';
+  static const String _baseUrl = '${Config.backendUrl}/api/classify';
 
   final http.Client _client;
 
