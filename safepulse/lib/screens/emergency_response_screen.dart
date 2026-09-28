@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
+import '../config.dart';
 import '../l10n/app_localizations.dart';
 import '../models/classification_result.dart';
 import 'emergency_classification_screen.dart';
@@ -18,13 +19,8 @@ class EmergencyResponseScreen extends StatefulWidget {
 }
 
 class _EmergencyResponseScreenState extends State<EmergencyResponseScreen> {
-  // Android emulator: 10.0.2.2 reaches your Mac. iOS simulator: use
-  // --dart-define=NOTIFY_URL=http://localhost:3000/api/ndma/notify
-  // Real phone: use your Mac's LAN IP or a deployed URL.
-  static const String _notifyUrl = String.fromEnvironment(
-    'NOTIFY_URL',
-    defaultValue: 'http://10.0.2.2:3000/api/ndma/notify',
-  );
+  // Set per device with --dart-define=BACKEND_URL=... (see config.dart)
+  static const String _notifyUrl = '${Config.backendUrl}/api/ndma/notify';
 
   Position? _position;
   bool _locationFetched = false;
