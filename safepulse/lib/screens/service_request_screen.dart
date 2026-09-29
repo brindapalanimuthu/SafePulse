@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../l10n/app_localizations.dart';
 import '../services/sos_store.dart';
 import '../theme/sos_theme.dart';
 
@@ -37,69 +38,69 @@ class SosService {
   });
 
   /// Helpline numbers are for India. Change them here if you target another country.
-  static const all = <SosService>[
-    SosService(
-      icon: Icons.add_rounded,
-      name: 'Medical Emergency',
-      tileSubtitle: 'Call an ambulance',
-      label: 'Medical emergency',
-      headline: 'HELP IS ONE\nCALL AWAY.',
-      description: 'Call the ambulance service and tell them where you are.',
-      number: '108',
-      numberName: 'Ambulance',
-      showMedicalDetails: true,
-      rows: [
-        ServiceRow(Icons.phone_in_talk_outlined, 'Calls 108', 'Connects you to emergency ambulance dispatch.'),
-        ServiceRow(Icons.location_on_outlined, 'Share your location', 'Tell the operator where you are and what happened.'),
-        ServiceRow(Icons.badge_outlined, 'Keep your details ready', 'Your blood group and notes from Profile are shown below.'),
-      ],
-    ),
-    SosService(
-      icon: Icons.shield_outlined,
-      name: 'Security Assistance',
-      tileSubtitle: 'Reach police and rescue',
-      label: 'Security assistance',
-      headline: 'YOU ARE\nNOT ALONE.',
-      description: 'The national emergency number reaches police, fire and ambulance.',
-      number: '112',
-      numberName: 'National emergency number',
-      rows: [
-        ServiceRow(Icons.phone_in_talk_outlined, 'Calls 112', 'One number for police, fire and ambulance.'),
-        ServiceRow(Icons.location_on_outlined, 'Give your location', 'Say where you are and stay on the line until help is confirmed.'),
-        ServiceRow(Icons.notifications_active_outlined, 'Alert your circle', 'Use Start SOS alert below to run the full alert flow.'),
-      ],
-    ),
-    SosService(
-      icon: Icons.directions_car_outlined,
-      name: 'Roadside Help',
-      tileSubtitle: 'Breakdowns and accidents',
-      label: 'Roadside help',
-      headline: 'STUCK ON\nTHE ROAD?',
-      description: 'The highway helpline covers breakdowns and accidents on national highway toll stretches. On other roads, call 112.',
-      number: '1033',
-      numberName: 'NHAI highway helpline',
-      rows: [
-        ServiceRow(Icons.phone_in_talk_outlined, 'Calls 1033', 'Toll-free, 24/7 national highway helpline.'),
-        ServiceRow(Icons.car_repair_outlined, 'Breakdowns and accidents', 'Can arrange an ambulance, patrol vehicle or crane.'),
-        ServiceRow(Icons.info_outline, 'Highways only', 'Not for other roads. Call 112 there.'),
-      ],
-    ),
-    SosService(
-      icon: Icons.flight_outlined,
-      name: 'Travel Assistance',
-      tileSubtitle: "Support while you're away",
-      label: 'Travel assistance',
-      headline: 'HELP WHILE\nYOU TRAVEL.',
-      description: 'The Ministry of Tourism helpline gives travel guidance in 12 languages.',
-      number: '1363',
-      numberName: 'Tourist helpline',
-      rows: [
-        ServiceRow(Icons.phone_in_talk_outlined, 'Calls 1363', 'Free, 24/7 tourist helpline.'),
-        ServiceRow(Icons.translate_rounded, 'Your language', 'Operators answer in English and eleven other languages.'),
-        ServiceRow(Icons.warning_amber_rounded, 'Not an emergency line', 'For anything urgent, call 112 first.'),
-      ],
-    ),
-  ];
+  static List<SosService> all(AppLocalizations t) => [
+        SosService(
+          icon: Icons.add_rounded,
+          name: t.svcMedicalName,
+          tileSubtitle: t.svcMedicalSub,
+          label: t.svcMedicalName,
+          headline: t.svcMedicalHeadline,
+          description: t.svcMedicalDesc,
+          number: '108',
+          numberName: t.svcMedicalNumberName,
+          showMedicalDetails: true,
+          rows: [
+            ServiceRow(Icons.phone_in_talk_outlined, t.svcMedicalR1T, t.svcMedicalR1B),
+            ServiceRow(Icons.location_on_outlined, t.svcMedicalR2T, t.svcMedicalR2B),
+            ServiceRow(Icons.badge_outlined, t.svcMedicalR3T, t.svcMedicalR3B),
+          ],
+        ),
+        SosService(
+          icon: Icons.shield_outlined,
+          name: t.svcSecurityName,
+          tileSubtitle: t.svcSecuritySub,
+          label: t.svcSecurityName,
+          headline: t.svcSecurityHeadline,
+          description: t.svcSecurityDesc,
+          number: '112',
+          numberName: t.svcSecurityNumberName,
+          rows: [
+            ServiceRow(Icons.phone_in_talk_outlined, t.svcSecurityR1T, t.svcSecurityR1B),
+            ServiceRow(Icons.location_on_outlined, t.svcSecurityR2T, t.svcSecurityR2B),
+            ServiceRow(Icons.notifications_active_outlined, t.svcSecurityR3T, t.svcSecurityR3B),
+          ],
+        ),
+        SosService(
+          icon: Icons.directions_car_outlined,
+          name: t.svcRoadName,
+          tileSubtitle: t.svcRoadSub,
+          label: t.svcRoadName,
+          headline: t.svcRoadHeadline,
+          description: t.svcRoadDesc,
+          number: '1033',
+          numberName: t.svcRoadNumberName,
+          rows: [
+            ServiceRow(Icons.phone_in_talk_outlined, t.svcRoadR1T, t.svcRoadR1B),
+            ServiceRow(Icons.car_repair_outlined, t.svcRoadR2T, t.svcRoadR2B),
+            ServiceRow(Icons.info_outline, t.svcRoadR3T, t.svcRoadR3B),
+          ],
+        ),
+        SosService(
+          icon: Icons.flight_outlined,
+          name: t.svcTravelName,
+          tileSubtitle: t.svcTravelSub,
+          label: t.svcTravelName,
+          headline: t.svcTravelHeadline,
+          description: t.svcTravelDesc,
+          number: '1363',
+          numberName: t.svcTravelNumberName,
+          rows: [
+            ServiceRow(Icons.phone_in_talk_outlined, t.svcTravelR1T, t.svcTravelR1B),
+            ServiceRow(Icons.translate_rounded, t.svcTravelR2T, t.svcTravelR2B),
+            ServiceRow(Icons.warning_amber_rounded, t.svcTravelR3T, t.svcTravelR3B),
+          ],
+        ),
+      ];
 }
 
 class ServiceRequestScreen extends StatelessWidget {
@@ -108,15 +109,17 @@ class ServiceRequestScreen extends StatelessWidget {
   const ServiceRequestScreen({super.key, required this.service, required this.onSos});
 
   Future<void> _call(BuildContext context, String number, String label) async {
+    final t = AppLocalizations.of(context)!;
+    final messenger = ScaffoldMessenger.of(context);
     SosStore.instance.logActivity('$label: called $number');
     var ok = false;
     try {
       ok = await launchUrl(Uri(scheme: 'tel', path: number));
     } catch (_) {}
-    if (!ok && context.mounted) {
+    if (!ok) {
       await Clipboard.setData(ClipboardData(text: number));
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("This device can't place calls. $number copied.")),
+      messenger.showSnackBar(
+        SnackBar(content: Text(t.callFailed(number))),
       );
     }
   }
@@ -145,12 +148,13 @@ class ServiceRequestScreen extends StatelessWidget {
     return ListenableBuilder(
       listenable: SosStore.instance,
       builder: (context, _) {
+        final t = AppLocalizations.of(context)!;
         final s = SosStore.instance;
         final lines = <String>[
-          if (s.name.isNotEmpty) 'Name: ${s.name}',
-          if (s.phone.isNotEmpty) 'Phone: ${s.phone}',
-          if (s.bloodGroup.isNotEmpty) 'Blood group: ${s.bloodGroup}',
-          if (s.note.isNotEmpty) 'Note: ${s.note}',
+          if (s.name.isNotEmpty) t.detailName(s.name),
+          if (s.phone.isNotEmpty) t.detailPhone(s.phone),
+          if (s.bloodGroup.isNotEmpty) t.detailBlood(s.bloodGroup),
+          if (s.note.isNotEmpty) t.detailNote(s.note),
         ];
         if (lines.isEmpty) return const SizedBox.shrink();
         return Container(
@@ -159,7 +163,7 @@ class ServiceRequestScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(color: SosColors.canvas, borderRadius: BorderRadius.circular(16)),
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('Your details', style: SosText.body(12, color: SosColors.muted, weight: FontWeight.w600)),
+            Text(t.yourDetails, style: SosText.body(12, color: SosColors.muted, weight: FontWeight.w600)),
             const SizedBox(height: 8),
             for (final l in lines) Padding(padding: const EdgeInsets.only(bottom: 4), child: Text(l, style: SosText.body(13))),
           ]),
@@ -170,6 +174,7 @@ class ServiceRequestScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     final s = service;
     return Scaffold(
       backgroundColor: SosColors.surface,
@@ -184,7 +189,7 @@ class ServiceRequestScreen extends StatelessWidget {
                   child: IconButton.filledTonal(
                     onPressed: () => Navigator.pop(context),
                     icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 16),
-                    tooltip: 'Back',
+                    tooltip: t.backTooltip,
                   ),
                 ),
                 const SizedBox(height: 22),
@@ -213,7 +218,7 @@ class ServiceRequestScreen extends StatelessWidget {
                   ),
                   onPressed: () => _call(context, s.number, s.name),
                   child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                    Text('Call ${s.number}  ·  ${s.numberName}', style: SosText.body(14, color: Colors.white, weight: FontWeight.w700)),
+                    Text(t.callNumber(s.number, s.numberName), style: SosText.body(14, color: Colors.white, weight: FontWeight.w700)),
                     Container(
                       width: 34,
                       height: 34,
@@ -228,14 +233,14 @@ class ServiceRequestScreen extends StatelessWidget {
                 if (s.number != '112')
                   TextButton(
                     onPressed: () => _call(context, '112', 'Emergency'),
-                    child: Text('In danger? Call 112', style: SosText.body(13, color: SosColors.red, weight: FontWeight.w600)),
+                    child: Text(t.inDanger112, style: SosText.body(13, color: SosColors.red, weight: FontWeight.w600)),
                   ),
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                     onSos();
                   },
-                  child: Text('Start SOS alert', style: SosText.body(13, color: SosColors.ink, weight: FontWeight.w600)),
+                  child: Text(t.startSosAlert, style: SosText.body(13, color: SosColors.ink, weight: FontWeight.w600)),
                 ),
               ]),
             ]),

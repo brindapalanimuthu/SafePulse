@@ -26,6 +26,7 @@ class VoiceCaptureService {
   /// [onResult]. Call [stopListening] to end early.
   Future<void> startListening({
     required void Function(String text, bool isFinal) onResult,
+    String? localeId,
   }) async {
     if (!_isInitialized) {
       final ok = await initialize();
@@ -37,6 +38,7 @@ class VoiceCaptureService {
         onResult(result.recognizedWords, result.finalResult);
       },
       listenOptions: stt.SpeechListenOptions(
+        localeId: localeId,
         listenFor: const Duration(seconds: 30),
         pauseFor: const Duration(seconds: 4),
         partialResults: true,

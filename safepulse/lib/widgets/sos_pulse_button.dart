@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../l10n/app_localizations.dart';
 import '../theme/sos_theme.dart';
 
 /// Big red emergency button with two expanding pulse rings.
@@ -39,7 +40,7 @@ class _SosPulseButtonState extends State<SosPulseButton> with SingleTickerProvid
       height: d,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(color: SosColors.red.withOpacity((1 - p) * 0.55), width: 1.5),
+        border: Border.all(color: SosColors.red.withValues(alpha: (1 - p) * 0.55), width: 1.5),
       ),
     );
   }
@@ -47,15 +48,16 @@ class _SosPulseButtonState extends State<SosPulseButton> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
     final core = widget.size * 0.62;
+    final t = AppLocalizations.of(context)!;
     return Semantics(
       button: true,
-      label: 'Emergency SOS',
+      label: t.sosSemantic,
       child: SizedBox(
         width: widget.size,
         height: widget.size,
         child: AnimatedBuilder(
           animation: _c,
-          builder: (_, __) => Stack(
+          builder: (_, _) => Stack(
             alignment: Alignment.center,
             children: [
               _ring(_c.value),
@@ -76,16 +78,16 @@ class _SosPulseButtonState extends State<SosPulseButton> with SingleTickerProvid
                       stops: [0.0, 0.55, 1.0],
                     ),
                     boxShadow: [
-                      BoxShadow(color: SosColors.red.withOpacity(0.5), blurRadius: 44, spreadRadius: 2),
+                      BoxShadow(color: SosColors.red.withValues(alpha: 0.5), blurRadius: 44, spreadRadius: 2),
                     ],
                   ),
                   alignment: Alignment.center,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text('TAP FOR', style: SosText.body(11, color: Colors.white70, weight: FontWeight.w600, spacing: 1.6)),
+                      Text(t.tapFor, style: SosText.body(11, color: Colors.white70, weight: FontWeight.w600, spacing: 1.6)),
                       const SizedBox(height: 4),
-                      Text('EMERGENCY', style: SosText.body(17, color: Colors.white, weight: FontWeight.w800, spacing: 0.4)),
+                      Text(t.emergencyCaps, style: SosText.body(17, color: Colors.white, weight: FontWeight.w800, spacing: 0.4)),
                     ],
                   ),
                 ),

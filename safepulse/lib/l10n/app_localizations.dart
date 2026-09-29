@@ -258,6 +258,666 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Stop'**
   String get calmModeStop;
+
+  /// No description provided for @splashTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'EXPERT HELP. ANYTIME.'**
+  String get splashTagline;
+
+  /// No description provided for @featProtection.
+  ///
+  /// In en, this message translates to:
+  /// **'24/7\nPROTECTION'**
+  String get featProtection;
+
+  /// No description provided for @featLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'REAL-TIME\nLOCATION'**
+  String get featLocation;
+
+  /// No description provided for @featPrivate.
+  ///
+  /// In en, this message translates to:
+  /// **'PRIVATE &\nSECURE'**
+  String get featPrivate;
+
+  /// No description provided for @continueLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueLabel;
+
+  /// No description provided for @tapFor.
+  ///
+  /// In en, this message translates to:
+  /// **'TAP FOR'**
+  String get tapFor;
+
+  /// No description provided for @emergencyCaps.
+  ///
+  /// In en, this message translates to:
+  /// **'EMERGENCY'**
+  String get emergencyCaps;
+
+  /// No description provided for @sosSemantic.
+  ///
+  /// In en, this message translates to:
+  /// **'Emergency SOS'**
+  String get sosSemantic;
+
+  /// No description provided for @welcomeBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back,'**
+  String get welcomeBack;
+
+  /// No description provided for @howCanWeHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'How can we help?'**
+  String get howCanWeHelp;
+
+  /// No description provided for @activeSos.
+  ///
+  /// In en, this message translates to:
+  /// **'Active SOS'**
+  String get activeSos;
+
+  /// No description provided for @tapForHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'TAP FOR HELP'**
+  String get tapForHelp;
+
+  /// No description provided for @quickServices.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick services'**
+  String get quickServices;
+
+  /// No description provided for @tileSimulateFall.
+  ///
+  /// In en, this message translates to:
+  /// **'Simulate fall'**
+  String get tileSimulateFall;
+
+  /// No description provided for @tileSimulateFallSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Test fall detection'**
+  String get tileSimulateFallSub;
+
+  /// No description provided for @tabHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get tabHome;
+
+  /// No description provided for @tabContacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Contacts'**
+  String get tabContacts;
+
+  /// No description provided for @tabActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity'**
+  String get tabActivity;
+
+  /// No description provided for @tabProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get tabProfile;
+
+  /// No description provided for @activityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'ACTIVITY'**
+  String get activityTitle;
+
+  /// No description provided for @clearLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get clearLabel;
+
+  /// No description provided for @activitySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your recent alerts and tests.'**
+  String get activitySubtitle;
+
+  /// No description provided for @nothingYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing yet'**
+  String get nothingYet;
+
+  /// No description provided for @nothingYetBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Alerts you trigger will show up here.'**
+  String get nothingYetBody;
+
+  /// No description provided for @contactsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'CONTACTS'**
+  String get contactsTitle;
+
+  /// No description provided for @contactsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'People who should know when you need help.'**
+  String get contactsSubtitle;
+
+  /// No description provided for @noContacts.
+  ///
+  /// In en, this message translates to:
+  /// **'No trusted contacts yet'**
+  String get noContacts;
+
+  /// No description provided for @noContactsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add someone who can be reached in an emergency.'**
+  String get noContactsBody;
+
+  /// No description provided for @swipeToRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Swipe left to remove a contact.'**
+  String get swipeToRemove;
+
+  /// No description provided for @addContactTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'ADD CONTACT'**
+  String get addContactTitle;
+
+  /// No description provided for @addContactTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Add contact'**
+  String get addContactTooltip;
+
+  /// No description provided for @nameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get nameLabel;
+
+  /// No description provided for @phoneLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number'**
+  String get phoneLabel;
+
+  /// No description provided for @invalidContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a name and a valid phone number'**
+  String get invalidContact;
+
+  /// No description provided for @saveContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Save contact'**
+  String get saveContact;
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PROFILE'**
+  String get profileTitle;
+
+  /// No description provided for @profileSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Shared with responders when you send an alert.'**
+  String get profileSubtitle;
+
+  /// No description provided for @bloodGroupLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Blood group (optional)'**
+  String get bloodGroupLabel;
+
+  /// No description provided for @bloodGroupHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. O+'**
+  String get bloodGroupHint;
+
+  /// No description provided for @noteLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Emergency note (optional)'**
+  String get noteLabel;
+
+  /// No description provided for @noteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Allergies, medication, anything responders should know'**
+  String get noteHint;
+
+  /// No description provided for @saveProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Save profile'**
+  String get saveProfile;
+
+  /// No description provided for @profileSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile saved'**
+  String get profileSaved;
+
+  /// No description provided for @languageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get languageLabel;
+
+  /// No description provided for @backTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get backTooltip;
+
+  /// No description provided for @yourDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Your details'**
+  String get yourDetails;
+
+  /// No description provided for @detailName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name: {value}'**
+  String detailName(String value);
+
+  /// No description provided for @detailPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone: {value}'**
+  String detailPhone(String value);
+
+  /// No description provided for @detailBlood.
+  ///
+  /// In en, this message translates to:
+  /// **'Blood group: {value}'**
+  String detailBlood(String value);
+
+  /// No description provided for @detailNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Note: {value}'**
+  String detailNote(String value);
+
+  /// No description provided for @callNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Call {number}  ·  {name}'**
+  String callNumber(String number, String name);
+
+  /// No description provided for @callFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'This device can\'t place calls. {number} copied.'**
+  String callFailed(String number);
+
+  /// No description provided for @inDanger112.
+  ///
+  /// In en, this message translates to:
+  /// **'In danger? Call 112'**
+  String get inDanger112;
+
+  /// No description provided for @startSosAlert.
+  ///
+  /// In en, this message translates to:
+  /// **'Start SOS alert'**
+  String get startSosAlert;
+
+  /// No description provided for @svcMedicalName.
+  ///
+  /// In en, this message translates to:
+  /// **'Medical Emergency'**
+  String get svcMedicalName;
+
+  /// No description provided for @svcMedicalSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Call an ambulance'**
+  String get svcMedicalSub;
+
+  /// No description provided for @svcMedicalHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'HELP IS ONE\nCALL AWAY.'**
+  String get svcMedicalHeadline;
+
+  /// No description provided for @svcMedicalDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Call the ambulance service and tell them where you are.'**
+  String get svcMedicalDesc;
+
+  /// No description provided for @svcMedicalNumberName.
+  ///
+  /// In en, this message translates to:
+  /// **'Ambulance'**
+  String get svcMedicalNumberName;
+
+  /// No description provided for @svcMedicalR1T.
+  ///
+  /// In en, this message translates to:
+  /// **'Calls 108'**
+  String get svcMedicalR1T;
+
+  /// No description provided for @svcMedicalR1B.
+  ///
+  /// In en, this message translates to:
+  /// **'Connects you to emergency ambulance dispatch.'**
+  String get svcMedicalR1B;
+
+  /// No description provided for @svcMedicalR2T.
+  ///
+  /// In en, this message translates to:
+  /// **'Share your location'**
+  String get svcMedicalR2T;
+
+  /// No description provided for @svcMedicalR2B.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell the operator where you are and what happened.'**
+  String get svcMedicalR2B;
+
+  /// No description provided for @svcMedicalR3T.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your details ready'**
+  String get svcMedicalR3T;
+
+  /// No description provided for @svcMedicalR3B.
+  ///
+  /// In en, this message translates to:
+  /// **'Your blood group and notes from Profile are shown below.'**
+  String get svcMedicalR3B;
+
+  /// No description provided for @svcSecurityName.
+  ///
+  /// In en, this message translates to:
+  /// **'Security Assistance'**
+  String get svcSecurityName;
+
+  /// No description provided for @svcSecuritySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach police and rescue'**
+  String get svcSecuritySub;
+
+  /// No description provided for @svcSecurityHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'YOU ARE\nNOT ALONE.'**
+  String get svcSecurityHeadline;
+
+  /// No description provided for @svcSecurityDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'The national emergency number reaches police, fire and ambulance.'**
+  String get svcSecurityDesc;
+
+  /// No description provided for @svcSecurityNumberName.
+  ///
+  /// In en, this message translates to:
+  /// **'National emergency number'**
+  String get svcSecurityNumberName;
+
+  /// No description provided for @svcSecurityR1T.
+  ///
+  /// In en, this message translates to:
+  /// **'Calls 112'**
+  String get svcSecurityR1T;
+
+  /// No description provided for @svcSecurityR1B.
+  ///
+  /// In en, this message translates to:
+  /// **'One number for police, fire and ambulance.'**
+  String get svcSecurityR1B;
+
+  /// No description provided for @svcSecurityR2T.
+  ///
+  /// In en, this message translates to:
+  /// **'Give your location'**
+  String get svcSecurityR2T;
+
+  /// No description provided for @svcSecurityR2B.
+  ///
+  /// In en, this message translates to:
+  /// **'Say where you are and stay on the line until help is confirmed.'**
+  String get svcSecurityR2B;
+
+  /// No description provided for @svcSecurityR3T.
+  ///
+  /// In en, this message translates to:
+  /// **'Alert your circle'**
+  String get svcSecurityR3T;
+
+  /// No description provided for @svcSecurityR3B.
+  ///
+  /// In en, this message translates to:
+  /// **'Use Start SOS alert below to run the full alert flow.'**
+  String get svcSecurityR3B;
+
+  /// No description provided for @svcRoadName.
+  ///
+  /// In en, this message translates to:
+  /// **'Roadside Help'**
+  String get svcRoadName;
+
+  /// No description provided for @svcRoadSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Breakdowns and accidents'**
+  String get svcRoadSub;
+
+  /// No description provided for @svcRoadHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'STUCK ON\nTHE ROAD?'**
+  String get svcRoadHeadline;
+
+  /// No description provided for @svcRoadDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'The highway helpline covers breakdowns and accidents on national highway toll stretches. On other roads, call 112.'**
+  String get svcRoadDesc;
+
+  /// No description provided for @svcRoadNumberName.
+  ///
+  /// In en, this message translates to:
+  /// **'NHAI highway helpline'**
+  String get svcRoadNumberName;
+
+  /// No description provided for @svcRoadR1T.
+  ///
+  /// In en, this message translates to:
+  /// **'Calls 1033'**
+  String get svcRoadR1T;
+
+  /// No description provided for @svcRoadR1B.
+  ///
+  /// In en, this message translates to:
+  /// **'Toll-free, 24/7 national highway helpline.'**
+  String get svcRoadR1B;
+
+  /// No description provided for @svcRoadR2T.
+  ///
+  /// In en, this message translates to:
+  /// **'Breakdowns and accidents'**
+  String get svcRoadR2T;
+
+  /// No description provided for @svcRoadR2B.
+  ///
+  /// In en, this message translates to:
+  /// **'Can arrange an ambulance, patrol vehicle or crane.'**
+  String get svcRoadR2B;
+
+  /// No description provided for @svcRoadR3T.
+  ///
+  /// In en, this message translates to:
+  /// **'Highways only'**
+  String get svcRoadR3T;
+
+  /// No description provided for @svcRoadR3B.
+  ///
+  /// In en, this message translates to:
+  /// **'Not for other roads. Call 112 there.'**
+  String get svcRoadR3B;
+
+  /// No description provided for @svcTravelName.
+  ///
+  /// In en, this message translates to:
+  /// **'Travel Assistance'**
+  String get svcTravelName;
+
+  /// No description provided for @svcTravelSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Support while you\'re away'**
+  String get svcTravelSub;
+
+  /// No description provided for @svcTravelHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'HELP WHILE\nYOU TRAVEL.'**
+  String get svcTravelHeadline;
+
+  /// No description provided for @svcTravelDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'The Ministry of Tourism helpline gives travel guidance in 12 languages.'**
+  String get svcTravelDesc;
+
+  /// No description provided for @svcTravelNumberName.
+  ///
+  /// In en, this message translates to:
+  /// **'Tourist helpline'**
+  String get svcTravelNumberName;
+
+  /// No description provided for @svcTravelR1T.
+  ///
+  /// In en, this message translates to:
+  /// **'Calls 1363'**
+  String get svcTravelR1T;
+
+  /// No description provided for @svcTravelR1B.
+  ///
+  /// In en, this message translates to:
+  /// **'Free, 24/7 tourist helpline.'**
+  String get svcTravelR1B;
+
+  /// No description provided for @svcTravelR2T.
+  ///
+  /// In en, this message translates to:
+  /// **'Your language'**
+  String get svcTravelR2T;
+
+  /// No description provided for @svcTravelR2B.
+  ///
+  /// In en, this message translates to:
+  /// **'Operators answer in English and eleven other languages.'**
+  String get svcTravelR2B;
+
+  /// No description provided for @svcTravelR3T.
+  ///
+  /// In en, this message translates to:
+  /// **'Not an emergency line'**
+  String get svcTravelR3T;
+
+  /// No description provided for @svcTravelR3B.
+  ///
+  /// In en, this message translates to:
+  /// **'For anything urgent, call 112 first.'**
+  String get svcTravelR3B;
+
+  /// No description provided for @addPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a photo'**
+  String get addPhoto;
+
+  /// No description provided for @camera.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get camera;
+
+  /// No description provided for @gallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get gallery;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @usePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this photo'**
+  String get usePhoto;
+
+  /// No description provided for @cameraError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not access camera/gallery: {error}'**
+  String cameraError(String error);
+
+  /// No description provided for @tapMicStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the mic to start'**
+  String get tapMicStart;
+
+  /// No description provided for @speechUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech recognition unavailable on this device'**
+  String get speechUnavailable;
+
+  /// No description provided for @listening.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening...'**
+  String get listening;
+
+  /// No description provided for @tapMicRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the mic to try again, or confirm below'**
+  String get tapMicRetry;
+
+  /// No description provided for @speechPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Your speech will appear here...'**
+  String get speechPlaceholder;
+
+  /// No description provided for @useThis.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this'**
+  String get useThis;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

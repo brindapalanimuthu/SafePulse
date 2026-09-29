@@ -73,7 +73,7 @@ class _CountdownScreenState extends State<CountdownScreen> {
                 TweenAnimationBuilder<double>(
                   tween: Tween(end: _secondsLeft / _startSeconds),
                   duration: const Duration(milliseconds: 900),
-                  builder: (_, v, __) => SizedBox.expand(
+                  builder: (_, v, _) => SizedBox.expand(
                     child: CircularProgressIndicator(
                       value: v,
                       strokeWidth: 6,
@@ -88,7 +88,7 @@ class _CountdownScreenState extends State<CountdownScreen> {
                   height: 210,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    boxShadow: [BoxShadow(color: SosColors.red.withOpacity(0.35), blurRadius: 60)],
+                    boxShadow: [BoxShadow(color: SosColors.red.withValues(alpha: 0.35), blurRadius: 60)],
                   ),
                 ),
                 Semantics(

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import '../l10n/app_localizations.dart';
 
 /// Bottom sheet that lets the user take a photo or pick one from the
 /// gallery, preview it, and confirm. Returns the picked File (or null
@@ -36,12 +37,14 @@ class _PhotoCaptureSheetState extends State<PhotoCaptureSheet> {
       if (file == null) return;
       setState(() => _pickedFile = File(file.path));
     } catch (e) {
-      setState(() => _errorText = 'Could not access camera/gallery: $e');
+      if (!mounted) return;
+      setState(() => _errorText = AppLocalizations.of(context)!.cameraError('$e'));
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     return Padding(
       padding: EdgeInsets.only(
         left: 20,
@@ -52,8 +55,8 @@ class _PhotoCaptureSheetState extends State<PhotoCaptureSheet> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
-            'Add a photo',
+          Text(
+            t.addPhoto,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 16),
@@ -84,7 +87,7 @@ class _PhotoCaptureSheetState extends State<PhotoCaptureSheet> {
                 child: OutlinedButton.icon(
                   onPressed: () => _pickImage(ImageSource.camera),
                   icon: const Icon(Icons.camera_alt),
-                  label: const Text('Camera'),
+                  label: Text(t.camera),
                 ),
               ),
               const SizedBox(width: 12),
@@ -92,7 +95,7 @@ class _PhotoCaptureSheetState extends State<PhotoCaptureSheet> {
                 child: OutlinedButton.icon(
                   onPressed: () => _pickImage(ImageSource.gallery),
                   icon: const Icon(Icons.photo_library),
-                  label: const Text('Gallery'),
+                  label: Text(t.gallery),
                 ),
               ),
             ],
@@ -103,7 +106,7 @@ class _PhotoCaptureSheetState extends State<PhotoCaptureSheet> {
               Expanded(
                 child: OutlinedButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Cancel'),
+                  child: Text(t.cancel),
                 ),
               ),
               const SizedBox(width: 12),
@@ -116,7 +119,7 @@ class _PhotoCaptureSheetState extends State<PhotoCaptureSheet> {
                     backgroundColor: Colors.redAccent,
                     foregroundColor: Colors.white,
                   ),
-                  child: const Text('Use this photo'),
+                  child: Text(t.usePhoto),
                 ),
               ),
             ],

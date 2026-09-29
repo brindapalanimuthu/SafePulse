@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../services/sos_store.dart';
 import '../theme/sos_theme.dart';
 import 'activity_screen.dart';
@@ -19,15 +20,17 @@ class AppShell extends StatefulWidget {
 class _AppShellState extends State<AppShell> {
   int _i = 0;
 
-  static const _tabs = [
-    (Icons.home_rounded, 'Home'),
-    (Icons.people_outline_rounded, 'Contacts'),
-    (Icons.receipt_long_outlined, 'Activity'),
-    (Icons.person_outline_rounded, 'Profile'),
+  static const _icons = [
+    Icons.home_rounded,
+    Icons.people_outline_rounded,
+    Icons.receipt_long_outlined,
+    Icons.person_outline_rounded,
   ];
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    final labels = [t.tabHome, t.tabContacts, t.tabActivity, t.tabProfile];
     return Scaffold(
       backgroundColor: SosColors.canvas,
       body: Stack(children: [
@@ -54,21 +57,21 @@ class _AppShellState extends State<AppShell> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(24),
-                boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 24, offset: const Offset(0, 8))],
+                boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 24, offset: const Offset(0, 8))],
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  for (var k = 0; k < _tabs.length; k++)
+                  for (var k = 0; k < _icons.length; k++)
                     InkWell(
                       borderRadius: BorderRadius.circular(14),
                       onTap: () => setState(() => _i = k),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                         child: Column(mainAxisSize: MainAxisSize.min, children: [
-                          Icon(_tabs[k].$1, color: _i == k ? SosColors.red : SosColors.muted),
+                          Icon(_icons[k], color: _i == k ? SosColors.red : SosColors.muted),
                           const SizedBox(height: 2),
-                          Text(_tabs[k].$2,
+                          Text(labels[k],
                               style: SosText.body(10, color: _i == k ? SosColors.red : SosColors.muted, weight: FontWeight.w600)),
                         ]),
                       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../services/sos_store.dart';
 import '../theme/sos_theme.dart';
 import '../widgets/sos_field.dart';
@@ -14,14 +15,16 @@ class ContactsScreen extends StatelessWidget {
       isScrollControlled: true,
       backgroundColor: SosColors.canvas,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
-      builder: (ctx) => Padding(
+      builder: (ctx) {
+        final t = AppLocalizations.of(ctx)!;
+        return Padding(
         padding: EdgeInsets.fromLTRB(20, 24, 20, MediaQuery.of(ctx).viewInsets.bottom + 24),
         child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text('ADD CONTACT', style: SosText.display(28)),
+          Text(t.addContactTitle, style: SosText.display(28)),
           const SizedBox(height: 16),
-          TextField(controller: name, textCapitalization: TextCapitalization.words, decoration: sosField('Name')),
+          TextField(controller: name, textCapitalization: TextCapitalization.words, decoration: sosField(t.nameLabel)),
           const SizedBox(height: 12),
-          TextField(controller: phone, keyboardType: TextInputType.phone, decoration: sosField('Phone number')),
+          TextField(controller: phone, keyboardType: TextInputType.phone, decoration: sosField(t.phoneLabel)),
           const SizedBox(height: 18),
           SizedBox(
             width: double.infinity,
@@ -32,17 +35,18 @@ class ContactsScreen extends StatelessWidget {
                 final n = name.text.trim();
                 final p = phone.text.trim();
                 if (n.isEmpty || p.replaceAll(RegExp(r'\D'), '').length < 7) {
-                  ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(content: Text('Enter a name and a valid phone number')));
+                  ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(content: Text(t.invalidContact)));
                   return;
                 }
                 SosStore.instance.addContact(TrustedContact(name: n, phone: p));
                 Navigator.pop(ctx);
               },
-              child: Text('Save contact', style: SosText.body(14, color: Colors.white, weight: FontWeight.w700)),
+              child: Text(t.saveContact, style: SosText.body(14, color: Colors.white, weight: FontWeight.w700)),
             ),
           ),
         ]),
-      ),
+      );
+      },
     );
   }
 
@@ -51,22 +55,23 @@ class ContactsScreen extends StatelessWidget {
     return ListenableBuilder(
       listenable: SosStore.instance,
       builder: (context, _) {
+        final l = AppLocalizations.of(context)!;
         final list = SosStore.instance.contacts;
         return SafeArea(
           child: ListView(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 110),
             children: [
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Text('CONTACTS', style: SosText.display(44)),
+                Text(l.contactsTitle, style: SosText.display(44)),
                 IconButton.filled(
                   style: IconButton.styleFrom(backgroundColor: SosColors.red),
                   onPressed: () => _add(context),
                   icon: const Icon(Icons.add_rounded, color: Colors.white),
-                  tooltip: 'Add contact',
+                  tooltip: l.addContactTooltip,
                 ),
               ]),
               const SizedBox(height: 6),
-              Text('People who should know when you need help.', style: SosText.body(13, color: SosColors.muted)),
+              Text(l.contactsSubtitle, style: SosText.body(13, color: SosColors.muted)),
               const SizedBox(height: 20),
               if (list.isEmpty)
                 Container(
@@ -75,9 +80,9 @@ class ContactsScreen extends StatelessWidget {
                   child: Column(children: [
                     const Icon(Icons.people_outline_rounded, size: 32, color: SosColors.muted),
                     const SizedBox(height: 10),
-                    Text('No trusted contacts yet', style: SosText.body(14, weight: FontWeight.w600)),
+                    Text(l.noContacts, style: SosText.body(14, weight: FontWeight.w600)),
                     const SizedBox(height: 4),
-                    Text('Add someone who can be reached in an emergency.', textAlign: TextAlign.center, style: SosText.body(12.5, color: SosColors.muted)),
+                    Text(l.noContactsBody, textAlign: TextAlign.center, style: SosText.body(12.5, color: SosColors.muted)),
                   ]),
                 ),
               for (final c in list)
@@ -115,7 +120,7 @@ class ContactsScreen extends StatelessWidget {
               if (list.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.only(top: 6),
-                  child: Text('Swipe left to remove a contact.', style: SosText.body(11.5, color: SosColors.muted)),
+                  child: Text(l.swipeToRemove, style: SosText.body(11.5, color: SosColors.muted)),
                 ),
             ],
           ),

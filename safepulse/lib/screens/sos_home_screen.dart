@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../main.dart';
 import '../theme/sos_theme.dart';
 import '../widgets/service_tile.dart';
@@ -11,6 +12,8 @@ class SosHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    final services = SosService.all(t);
     return SafeArea(
       child: ListView(
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 110),
@@ -38,11 +41,11 @@ class SosHomeScreen extends StatelessWidget {
             ]),
           ]),
           const SizedBox(height: 28),
-          Text('Welcome back,', style: SosText.body(14)),
+          Text(t.welcomeBack, style: SosText.body(14)),
           const SizedBox(height: 4),
           Text(userName.toUpperCase(), style: SosText.display(56)),
           const SizedBox(height: 22),
-          Text('How can we help?', style: SosText.body(12, color: SosColors.muted, weight: FontWeight.w600)),
+          Text(t.howCanWeHelp, style: SosText.body(12, color: SosColors.muted, weight: FontWeight.w600)),
           const SizedBox(height: 10),
           GestureDetector(
             onTap: onSos,
@@ -55,14 +58,14 @@ class SosHomeScreen extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
-                boxShadow: [BoxShadow(color: SosColors.red.withOpacity(0.35), blurRadius: 24, offset: const Offset(0, 10))],
+                boxShadow: [BoxShadow(color: SosColors.red.withValues(alpha: 0.35), blurRadius: 24, offset: const Offset(0, 10))],
               ),
               child: Row(children: [
                 Expanded(
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Text('Active SOS', style: SosText.body(12, color: Colors.white70, weight: FontWeight.w600)),
+                    Text(t.activeSos, style: SosText.body(12, color: Colors.white70, weight: FontWeight.w600)),
                     const SizedBox(height: 6),
-                    Text('TAP FOR HELP', style: SosText.display(28, color: Colors.white)),
+                    Text(t.tapForHelp, style: SosText.display(28, color: Colors.white)),
                   ]),
                 ),
                 Container(
@@ -82,12 +85,12 @@ class SosHomeScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 26),
-          Text('Quick services', style: SosText.body(12, color: SosColors.muted, weight: FontWeight.w600)),
+          Text(t.quickServices, style: SosText.body(12, color: SosColors.muted, weight: FontWeight.w600)),
           const SizedBox(height: 10),
-          for (final s in SosService.all) ...[
+          for (final s in services) ...[
             ServiceTile(
               icon: s.icon,
-              accent: s == SosService.all.first,
+              accent: s == services.first,
               title: s.name,
               subtitle: s.tileSubtitle,
               onTap: () => Navigator.of(context).push(
@@ -96,7 +99,7 @@ class SosHomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 10),
           ],
-          ServiceTile(icon: Icons.sensors_outlined, title: 'Simulate fall', subtitle: 'Test fall detection', onTap: onSos),
+          ServiceTile(icon: Icons.sensors_outlined, title: t.tileSimulateFall, subtitle: t.tileSimulateFallSub, onTap: onSos),
         ],
       ),
     );

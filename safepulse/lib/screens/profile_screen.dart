@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../main.dart';
+import '../l10n/app_localizations.dart';
 import '../services/sos_store.dart';
 import '../theme/sos_theme.dart';
 import '../widgets/sos_field.dart';
@@ -44,38 +45,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
       bloodGroup: _blood.text.trim(),
       note: _note.text.trim(),
     );
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Profile saved')));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.profileSaved)));
   }
 
   @override
   Widget build(BuildContext context) {
     final current = Localizations.localeOf(context).languageCode;
+    final t = AppLocalizations.of(context)!;
     return SafeArea(
       child: ListView(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 110),
         children: [
-          Text('PROFILE', style: SosText.display(44)),
+          Text(t.profileTitle, style: SosText.display(44)),
           const SizedBox(height: 6),
-          Text('Shared with responders when you send an alert.', style: SosText.body(13, color: SosColors.muted)),
+          Text(t.profileSubtitle, style: SosText.body(13, color: SosColors.muted)),
           const SizedBox(height: 20),
-          TextField(controller: _name, textCapitalization: TextCapitalization.words, decoration: sosField('Name')),
+          TextField(controller: _name, textCapitalization: TextCapitalization.words, decoration: sosField(t.nameLabel)),
           const SizedBox(height: 12),
-          TextField(controller: _phone, keyboardType: TextInputType.phone, decoration: sosField('Phone number')),
+          TextField(controller: _phone, keyboardType: TextInputType.phone, decoration: sosField(t.phoneLabel)),
           const SizedBox(height: 12),
-          TextField(controller: _blood, decoration: sosField('Blood group (optional)', hint: 'e.g. O+')),
+          TextField(controller: _blood, decoration: sosField(t.bloodGroupLabel, hint: t.bloodGroupHint)),
           const SizedBox(height: 12),
-          TextField(controller: _note, maxLines: 3, decoration: sosField('Emergency note (optional)', hint: 'Allergies, medication, anything responders should know')),
+          TextField(controller: _note, maxLines: 3, decoration: sosField(t.noteLabel, hint: t.noteHint)),
           const SizedBox(height: 18),
           SizedBox(
             height: 52,
             child: FilledButton(
               style: FilledButton.styleFrom(backgroundColor: SosColors.black, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
               onPressed: _save,
-              child: Text('Save profile', style: SosText.body(14, color: Colors.white, weight: FontWeight.w700)),
+              child: Text(t.saveProfile, style: SosText.body(14, color: Colors.white, weight: FontWeight.w700)),
             ),
           ),
           const SizedBox(height: 28),
-          Text('Language', style: SosText.body(12, color: SosColors.muted, weight: FontWeight.w600)),
+          Text(t.languageLabel, style: SosText.body(12, color: SosColors.muted, weight: FontWeight.w600)),
           const SizedBox(height: 10),
           Wrap(
             spacing: 8,

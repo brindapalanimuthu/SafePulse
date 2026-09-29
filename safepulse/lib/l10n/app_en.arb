@@ -25,5 +25,167 @@
   "calmModeReady": "Tap start when you're ready",
   "calmModeBreathing": "Breathe with me...",
   "calmModeStart": "Start",
-  "calmModeStop": "Stop"
+  "calmModeStop": "Stop",
+  "splashTagline": "EXPERT HELP. ANYTIME.",
+  "featProtection": "24/7\nPROTECTION",
+  "featLocation": "REAL-TIME\nLOCATION",
+  "featPrivate": "PRIVATE &\nSECURE",
+  "continueLabel": "Continue",
+  "tapFor": "TAP FOR",
+  "emergencyCaps": "EMERGENCY",
+  "sosSemantic": "Emergency SOS",
+  "welcomeBack": "Welcome back,",
+  "howCanWeHelp": "How can we help?",
+  "activeSos": "Active SOS",
+  "tapForHelp": "TAP FOR HELP",
+  "quickServices": "Quick services",
+  "tileSimulateFall": "Simulate fall",
+  "tileSimulateFallSub": "Test fall detection",
+  "tabHome": "Home",
+  "tabContacts": "Contacts",
+  "tabActivity": "Activity",
+  "tabProfile": "Profile",
+  "activityTitle": "ACTIVITY",
+  "clearLabel": "Clear",
+  "activitySubtitle": "Your recent alerts and tests.",
+  "nothingYet": "Nothing yet",
+  "nothingYetBody": "Alerts you trigger will show up here.",
+  "contactsTitle": "CONTACTS",
+  "contactsSubtitle": "People who should know when you need help.",
+  "noContacts": "No trusted contacts yet",
+  "noContactsBody": "Add someone who can be reached in an emergency.",
+  "swipeToRemove": "Swipe left to remove a contact.",
+  "addContactTitle": "ADD CONTACT",
+  "addContactTooltip": "Add contact",
+  "nameLabel": "Name",
+  "phoneLabel": "Phone number",
+  "invalidContact": "Enter a name and a valid phone number",
+  "saveContact": "Save contact",
+  "profileTitle": "PROFILE",
+  "profileSubtitle": "Shared with responders when you send an alert.",
+  "bloodGroupLabel": "Blood group (optional)",
+  "bloodGroupHint": "e.g. O+",
+  "noteLabel": "Emergency note (optional)",
+  "noteHint": "Allergies, medication, anything responders should know",
+  "saveProfile": "Save profile",
+  "profileSaved": "Profile saved",
+  "languageLabel": "Language",
+  "backTooltip": "Back",
+  "yourDetails": "Your details",
+  "detailName": "Name: {value}",
+  "@detailName": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "detailPhone": "Phone: {value}",
+  "@detailPhone": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "detailBlood": "Blood group: {value}",
+  "@detailBlood": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "detailNote": "Note: {value}",
+  "@detailNote": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "callNumber": "Call {number}  ·  {name}",
+  "@callNumber": {
+    "placeholders": {
+      "number": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "callFailed": "This device can't place calls. {number} copied.",
+  "@callFailed": {
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "inDanger112": "In danger? Call 112",
+  "startSosAlert": "Start SOS alert",
+  "svcMedicalName": "Medical Emergency",
+  "svcMedicalSub": "Call an ambulance",
+  "svcMedicalHeadline": "HELP IS ONE\nCALL AWAY.",
+  "svcMedicalDesc": "Call the ambulance service and tell them where you are.",
+  "svcMedicalNumberName": "Ambulance",
+  "svcMedicalR1T": "Calls 108",
+  "svcMedicalR1B": "Connects you to emergency ambulance dispatch.",
+  "svcMedicalR2T": "Share your location",
+  "svcMedicalR2B": "Tell the operator where you are and what happened.",
+  "svcMedicalR3T": "Keep your details ready",
+  "svcMedicalR3B": "Your blood group and notes from Profile are shown below.",
+  "svcSecurityName": "Security Assistance",
+  "svcSecuritySub": "Reach police and rescue",
+  "svcSecurityHeadline": "YOU ARE\nNOT ALONE.",
+  "svcSecurityDesc": "The national emergency number reaches police, fire and ambulance.",
+  "svcSecurityNumberName": "National emergency number",
+  "svcSecurityR1T": "Calls 112",
+  "svcSecurityR1B": "One number for police, fire and ambulance.",
+  "svcSecurityR2T": "Give your location",
+  "svcSecurityR2B": "Say where you are and stay on the line until help is confirmed.",
+  "svcSecurityR3T": "Alert your circle",
+  "svcSecurityR3B": "Use Start SOS alert below to run the full alert flow.",
+  "svcRoadName": "Roadside Help",
+  "svcRoadSub": "Breakdowns and accidents",
+  "svcRoadHeadline": "STUCK ON\nTHE ROAD?",
+  "svcRoadDesc": "The highway helpline covers breakdowns and accidents on national highway toll stretches. On other roads, call 112.",
+  "svcRoadNumberName": "NHAI highway helpline",
+  "svcRoadR1T": "Calls 1033",
+  "svcRoadR1B": "Toll-free, 24/7 national highway helpline.",
+  "svcRoadR2T": "Breakdowns and accidents",
+  "svcRoadR2B": "Can arrange an ambulance, patrol vehicle or crane.",
+  "svcRoadR3T": "Highways only",
+  "svcRoadR3B": "Not for other roads. Call 112 there.",
+  "svcTravelName": "Travel Assistance",
+  "svcTravelSub": "Support while you're away",
+  "svcTravelHeadline": "HELP WHILE\nYOU TRAVEL.",
+  "svcTravelDesc": "The Ministry of Tourism helpline gives travel guidance in 12 languages.",
+  "svcTravelNumberName": "Tourist helpline",
+  "svcTravelR1T": "Calls 1363",
+  "svcTravelR1B": "Free, 24/7 tourist helpline.",
+  "svcTravelR2T": "Your language",
+  "svcTravelR2B": "Operators answer in English and eleven other languages.",
+  "svcTravelR3T": "Not an emergency line",
+  "svcTravelR3B": "For anything urgent, call 112 first.",
+  "addPhoto": "Add a photo",
+  "camera": "Camera",
+  "gallery": "Gallery",
+  "cancel": "Cancel",
+  "usePhoto": "Use this photo",
+  "cameraError": "Could not access camera/gallery: {error}",
+  "@cameraError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "tapMicStart": "Tap the mic to start",
+  "speechUnavailable": "Speech recognition unavailable on this device",
+  "listening": "Listening...",
+  "tapMicRetry": "Tap the mic to try again, or confirm below",
+  "speechPlaceholder": "Your speech will appear here...",
+  "useThis": "Use this"
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../services/voice_capture_service.dart';
 
 /// Bottom sheet that records voice, shows live transcription, and
@@ -24,7 +25,7 @@ class _VoiceCaptureSheetState extends State<VoiceCaptureSheet> {
   final VoiceCaptureService _voiceService = VoiceCaptureService();
   String _transcript = '';
   bool _isListening = false;
-  String _statusText = 'Tap the mic to start';
+  String? _statusText; // null = default prompt (localized in build)
 
   @override
   void initState() {
@@ -35,22 +36,27 @@ class _VoiceCaptureSheetState extends State<VoiceCaptureSheet> {
   Future<void> _startListening() async {
     final available = await _voiceService.initialize();
     if (!available) {
-      setState(() => _statusText = 'Speech recognition unavailable on this device');
+      if (!mounted) return;
+      setState(() => _statusText = AppLocalizations.of(context)!.speechUnavailable);
       return;
     }
 
+    if (!mounted) return;
+    final t = AppLocalizations.of(context)!;
+    final localeId = '${Localizations.localeOf(context).languageCode}_IN';
     setState(() {
       _isListening = true;
-      _statusText = 'Listening...';
+      _statusText = t.listening;
     });
 
     await _voiceService.startListening(
+      localeId: localeId,
       onResult: (text, isFinal) {
         setState(() {
           _transcript = text;
           if (isFinal) {
             _isListening = false;
-            _statusText = 'Tap the mic to try again, or confirm below';
+            _statusText = t.tapMicRetry;
           }
         });
       },
@@ -74,6 +80,7 @@ class _VoiceCaptureSheetState extends State<VoiceCaptureSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     return Padding(
       padding: EdgeInsets.only(
         left: 20,
@@ -85,7 +92,7 @@ class _VoiceCaptureSheetState extends State<VoiceCaptureSheet> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            _statusText,
+            _statusText ?? t.tapMicStart,
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 16),
@@ -110,7 +117,7 @@ class _VoiceCaptureSheetState extends State<VoiceCaptureSheet> {
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
-              _transcript.isEmpty ? 'Your speech will appear here...' : _transcript,
+              _transcript.isEmpty ? t.speechPlaceholder : _transcript,
               style: TextStyle(
                 color: _transcript.isEmpty ? Colors.grey : Colors.black87,
               ),
@@ -122,7 +129,7 @@ class _VoiceCaptureSheetState extends State<VoiceCaptureSheet> {
               Expanded(
                 child: OutlinedButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Cancel'),
+                  child: Text(t.cancel),
                 ),
               ),
               const SizedBox(width: 12),
@@ -135,7 +142,7 @@ class _VoiceCaptureSheetState extends State<VoiceCaptureSheet> {
                     backgroundColor: Colors.redAccent,
                     foregroundColor: Colors.white,
                   ),
-                  child: const Text('Use this'),
+                  child: Text(t.useThis),
                 ),
               ),
             ],
