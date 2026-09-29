@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../l10n/app_localizations.dart';
+import '../theme/sos_theme.dart';
 import 'emergency_classification_screen.dart';
 
 class CountdownScreen extends StatefulWidget {
@@ -26,6 +28,7 @@ class _CountdownScreenState extends State<CountdownScreen> {
       setState(() {
         if (_secondsLeft > 0) {
           _secondsLeft--;
+          HapticFeedback.selectionClick();
         } else {
           timer.cancel();
           _triggerEmergency();
@@ -56,31 +59,60 @@ class _CountdownScreenState extends State<CountdownScreen> {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      backgroundColor: Colors.red.shade50,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              l10n.fallDetected,
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      backgroundColor: SosColors.black,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(24, 32, 24, 24),
+          child: Column(children: [
+            Text(l10n.fallDetected.toUpperCase(), textAlign: TextAlign.center, style: SosText.display(34, color: Colors.white)),
+            const Spacer(),
+            SizedBox(
+              width: 260,
+              height: 260,
+              child: Stack(alignment: Alignment.center, children: [
+                TweenAnimationBuilder<double>(
+                  tween: Tween(end: _secondsLeft / _startSeconds),
+                  duration: const Duration(milliseconds: 900),
+                  builder: (_, v, __) => SizedBox.expand(
+                    child: CircularProgressIndicator(
+                      value: v,
+                      strokeWidth: 6,
+                      strokeCap: StrokeCap.round,
+                      color: SosColors.red,
+                      backgroundColor: Colors.white12,
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 210,
+                  height: 210,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [BoxShadow(color: SosColors.red.withOpacity(0.35), blurRadius: 60)],
+                  ),
+                ),
+                Semantics(
+                  liveRegion: true,
+                  label: '$_secondsLeft seconds left',
+                  child: Text('$_secondsLeft', style: SosText.display(120, color: Colors.white)),
+                ),
+              ]),
             ),
-            const SizedBox(height: 24),
-            Text(
-              '$_secondsLeft',
-              style: const TextStyle(fontSize: 96, fontWeight: FontWeight.bold, color: Colors.redAccent),
-            ),
-            const SizedBox(height: 32),
-            ElevatedButton(
-              onPressed: _cancelCountdown,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: Colors.redAccent,
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+            const Spacer(),
+            SizedBox(
+              width: double.infinity,
+              height: 58,
+              child: FilledButton(
+                style: FilledButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: SosColors.black,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                ),
+                onPressed: _cancelCountdown,
+                child: Text(l10n.cancelCountdown, style: SosText.body(15, color: SosColors.black, weight: FontWeight.w700)),
               ),
-              child: Text(l10n.cancelCountdown),
             ),
-          ],
+          ]),
         ),
       ),
     );

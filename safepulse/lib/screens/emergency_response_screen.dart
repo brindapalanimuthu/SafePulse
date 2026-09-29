@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 import '../config.dart';
 import '../l10n/app_localizations.dart';
 import '../models/classification_result.dart';
+import '../services/sos_store.dart';
+import '../theme/sos_theme.dart';
 import 'emergency_classification_screen.dart';
 import 'calm_mode_screen.dart';
 
@@ -81,6 +83,7 @@ class _EmergencyResponseScreenState extends State<EmergencyResponseScreen> {
     });
 
     try {
+      final store = SosStore.instance;
       final response = await http
           .post(
             Uri.parse(_notifyUrl),
@@ -91,12 +94,21 @@ class _EmergencyResponseScreenState extends State<EmergencyResponseScreen> {
               'latitude': _position?.latitude ?? 0.0,
               'longitude': _position?.longitude ?? 0.0,
               'timestamp': DateTime.now().toIso8601String(),
+              // Added: who is asking and who to notify (from Profile / Contacts tabs)
+              'reporter': {
+                'name': store.name,
+                'phone': store.phone,
+                'bloodGroup': store.bloodGroup,
+                'note': store.note,
+              },
+              'contacts': store.contacts.map((c) => c.toJson()).toList(),
             }),
           )
           .timeout(const Duration(seconds: 8));
 
       if (!mounted) return;
       if (response.statusCode == 200) {
+        store.logActivity('Alert sent: ${widget.result.category.label}');
         setState(() {
           _dispatched = true;
           _dispatching = false;
@@ -179,6 +191,7 @@ class _EmergencyResponseScreenState extends State<EmergencyResponseScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final steps = _firstAidSteps(l10n);
+    final category = widget.result.category;
 
     final String locationText;
     if (_locationFetched && _position != null) {
@@ -191,115 +204,142 @@ class _EmergencyResponseScreenState extends State<EmergencyResponseScreen> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.red.shade50,
-      appBar: AppBar(
-        title: Text(widget.result.category.localizedLabel(l10n)),
-        automaticallyImplyLeading: false,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+      backgroundColor: SosColors.canvas,
+      body: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Card(
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  children: [
-                    const Icon(Icons.location_on, color: Colors.redAccent),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        locationText,
-                        style: const TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            OutlinedButton.icon(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => CalmModeScreen(firstAidSteps: steps),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.self_improvement),
-              label: Text(l10n.enterCalmMode),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              l10n.whatToDoNow,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(height: 8),
-            ...steps.map(
-              (step) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Icon(Icons.check_circle,
-                        color: Colors.redAccent, size: 20),
-                    const SizedBox(width: 8),
-                    Expanded(child: Text(step)),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 24),
-            if (_dispatched)
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.green.shade50,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.green),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(Icons.check_circle, color: Colors.green),
-                    const SizedBox(width: 12),
-                    Expanded(child: Text(l10n.helpNotified)),
-                  ],
-                ),
-              )
-            else
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.fromLTRB(20, 24, 20, 16),
                 children: [
-                  if (_dispatchError != null)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: Text(
-                        _dispatchError!,
-                        style: const TextStyle(color: Colors.red),
+                  Row(
+                    children: [
+                      Container(
+                        width: 48,
+                        height: 48,
+                        decoration: const BoxDecoration(color: SosColors.red, shape: BoxShape.circle),
+                        child: Icon(category.icon, color: Colors.white, size: 24),
+                      ),
+                      const SizedBox(width: 14),
+                      Expanded(
+                        child: Text(
+                          category.localizedLabel(l10n).toUpperCase(),
+                          style: SosText.display(44),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 22),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: SosColors.line),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.location_on, color: SosColors.red),
+                        const SizedBox(width: 12),
+                        Expanded(child: Text(locationText, style: SosText.body(14, weight: FontWeight.w600))),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    height: 52,
+                    child: OutlinedButton.icon(
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: SosColors.ink,
+                        backgroundColor: Colors.white,
+                        side: const BorderSide(color: SosColors.ink, width: 1.2),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => CalmModeScreen(firstAidSteps: steps),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.self_improvement),
+                      label: Text(l10n.enterCalmMode, style: SosText.body(14, weight: FontWeight.w700)),
+                    ),
+                  ),
+                  const SizedBox(height: 28),
+                  Text(l10n.whatToDoNow, style: SosText.body(12, color: SosColors.muted, weight: FontWeight.w600)),
+                  const SizedBox(height: 12),
+                  ...steps.map(
+                    (step) => Padding(
+                      padding: const EdgeInsets.only(bottom: 14),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 24,
+                            height: 24,
+                            margin: const EdgeInsets.only(top: 1),
+                            decoration: const BoxDecoration(color: SosColors.red, shape: BoxShape.circle),
+                            child: const Icon(Icons.check_rounded, color: Colors.white, size: 15),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(child: Text(step, style: SosText.body(14.5))),
+                        ],
                       ),
                     ),
-                  ElevatedButton(
-                    onPressed: _dispatching ? null : _dispatchHelp,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.redAccent,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                    ),
-                    child: _dispatching
-                        ? const SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: Colors.white,
-                            ),
-                          )
-                        : Text(l10n.notifyHelp),
                   ),
                 ],
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+              child: _dispatched
+                  ? Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: const Color(0xFF2E9E5B), width: 1.5),
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.check_circle, color: Color(0xFF2E9E5B)),
+                          const SizedBox(width: 12),
+                          Expanded(child: Text(l10n.helpNotified, style: SosText.body(14, weight: FontWeight.w600))),
+                        ],
+                      ),
+                    )
+                  : Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        if (_dispatchError != null)
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: Text(_dispatchError!, style: SosText.body(12.5, color: SosColors.redDeep)),
+                          ),
+                        SizedBox(
+                          height: 58,
+                          child: FilledButton(
+                            style: FilledButton.styleFrom(
+                              backgroundColor: SosColors.red,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                            ),
+                            onPressed: _dispatching ? null : _dispatchHelp,
+                            child: _dispatching
+                                ? const SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                                  )
+                                : Text(l10n.notifyHelp, style: SosText.body(15, color: Colors.white, weight: FontWeight.w700)),
+                          ),
+                        ),
+                      ],
+                    ),
+            ),
           ],
         ),
       ),

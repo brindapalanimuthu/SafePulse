@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
 import '../models/classification_result.dart';
 import '../services/classification_service.dart';
+import '../theme/sos_theme.dart';
 import '../widgets/photo_capture_sheet.dart';
 import '../widgets/voice_capture_sheet.dart';
 import 'emergency_response_screen.dart';
@@ -141,103 +142,142 @@ class _EmergencyClassificationScreenState
     super.dispose();
   }
 
+  Widget _categoryCard(EmergencyCategory category, AppLocalizations l10n) {
+    final selected = _selectedCategory == category;
+    final label = category.localizedLabel(l10n);
+    return Semantics(
+      button: true,
+      selected: selected,
+      label: label,
+      child: Material(
+        color: selected ? SosColors.red : Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(18),
+          onTap: () => _onCategorySelected(category),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(color: selected ? SosColors.red : SosColors.line, width: selected ? 1.5 : 1),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(category.icon, size: 30, color: selected ? Colors.white : SosColors.red),
+                const SizedBox(height: 10),
+                Text(
+                  label,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: SosText.body(14, color: selected ? Colors.white : SosColors.ink, weight: FontWeight.w700),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  ButtonStyle get _outlineStyle => OutlinedButton.styleFrom(
+        foregroundColor: SosColors.ink,
+        backgroundColor: Colors.white,
+        minimumSize: const Size.fromHeight(52),
+        side: const BorderSide(color: Color(0xFFD8D8DD)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      );
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.whatsHappening)),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+      backgroundColor: SosColors.canvas,
+      body: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              l10n.selectCategory,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(12, 8, 0, 0),
+                child: IconButton(
+                  onPressed: () => Navigator.of(context).maybePop(),
+                  icon: const Icon(Icons.arrow_back_rounded),
+                  tooltip: MaterialLocalizations.of(context).backButtonTooltip,
+                ),
+              ),
             ),
-            const SizedBox(height: 12),
-            GridView.count(
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              mainAxisSpacing: 12,
-              crossAxisSpacing: 12,
-              childAspectRatio: 1.3,
-              children: EmergencyCategory.values.map((category) {
-                final isSelected = _selectedCategory == category;
-                return GestureDetector(
-                  onTap: () => _onCategorySelected(category),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: isSelected ? Colors.redAccent : Colors.white,
-                      border: Border.all(
-                        color:
-                            isSelected ? Colors.redAccent : Colors.grey.shade300,
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(l10n.whatsHappening.toUpperCase(), style: SosText.display(40)),
+                    const SizedBox(height: 6),
+                    Text(l10n.selectCategory, style: SosText.body(13, color: SosColors.muted)),
+                    const SizedBox(height: 20),
+                    GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: EmergencyCategory.values.length,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 12,
+                        crossAxisSpacing: 12,
+                        mainAxisExtent: 112,
                       ),
-                      borderRadius: BorderRadius.circular(12),
+                      itemBuilder: (_, i) => _categoryCard(EmergencyCategory.values[i], l10n),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    const SizedBox(height: 20),
+                    Row(
                       children: [
-                        Icon(
-                          category.icon,
-                          size: 32,
-                          color: isSelected ? Colors.white : Colors.redAccent,
+                        Expanded(
+                          child: OutlinedButton.icon(
+                            style: _outlineStyle,
+                            onPressed: _onVoiceInputTap,
+                            icon: const Icon(Icons.mic_none_rounded),
+                            label: Text(l10n.voiceInput, maxLines: 1, overflow: TextOverflow.ellipsis),
+                          ),
                         ),
-                        const SizedBox(height: 8),
-                        Text(
-                          category.localizedLabel(l10n),
-                          style: TextStyle(
-                            color: isSelected ? Colors.white : Colors.black87,
-                            fontWeight: FontWeight.w500,
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: OutlinedButton.icon(
+                            style: _outlineStyle,
+                            onPressed: _onPhotoInputTap,
+                            icon: const Icon(Icons.photo_camera_outlined),
+                            label: Text(l10n.photoInput, maxLines: 1, overflow: TextOverflow.ellipsis),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 24),
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton.icon(
-                    onPressed: _onVoiceInputTap,
-                    icon: const Icon(Icons.mic),
-                    label: Text(l10n.voiceInput),
-                  ),
+                  ],
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: OutlinedButton.icon(
-                    onPressed: _onPhotoInputTap,
-                    icon: const Icon(Icons.camera_alt),
-                    label: Text(l10n.photoInput),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed:
-                  (_selectedCategory == null || _isSubmitting) ? null : _onSubmit,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.redAccent,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(vertical: 16),
               ),
-              child: _isSubmitting
-                  ? const SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        color: Colors.white,
-                      ),
-                    )
-                  : Text(l10n.sendForHelp),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+              child: SizedBox(
+                width: double.infinity,
+                height: 58,
+                child: FilledButton(
+                  style: FilledButton.styleFrom(
+                    backgroundColor: SosColors.black,
+                    disabledBackgroundColor: const Color(0xFFCFCFD4),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                  ),
+                  onPressed: (_selectedCategory == null || _isSubmitting) ? null : _onSubmit,
+                  child: _isSubmitting
+                      ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                        )
+                      : Text(l10n.sendForHelp, style: SosText.body(15, color: Colors.white, weight: FontWeight.w700)),
+                ),
+              ),
             ),
           ],
         ),
